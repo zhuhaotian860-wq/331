@@ -3,106 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIS  ION - 高端摄影工作室</title>
+    <title>LENS - 影像工作室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666666;
+            --accent: #c9a962;
+            --accent-hover: #dfc07a;
+            --border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+const imageData = [
+    { src: 'images/photo1.jpg', category: 'Portrait', title: '情绪人像', desc: '描述' },
+    { src: 'images/photo2.jpg', category: 'Wedding', title: '婚礼纪实', desc: '描述' },
+    // 添加更多...
+];
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            color: #1a1a1a;
-            background-color: #fff;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* 导航栏 */
-        nav {
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 导航 */
+        .nav {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            left: 0;
+            right: 0;
             z-index: 1000;
-            padding: 0 60px;
-            height: 80px;
+            padding: 24px 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            background: linear-gradient(180deg, rgba(10,10,10,0.9) 0%, transparent 100%);
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: #000;
+        .nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 80px;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 50px;
-        }
-
-        nav a {
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 8px;
+            color: var(--text-primary);
             text-decoration: none;
-            color: #666;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
             position: relative;
+            transition: var(--transition);
         }
 
-        nav a.order-link {
-            background: #000;
-            color: #fff;
-            padding: 10px 25px;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-        }
-
-        nav a.order-link:hover {
-            background: #333;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        nav a.order-link::after {
-            display: none;
-        }
-
-        nav a:hover {
-            color: #000;
-        }
-
-        nav a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -6px;
             left: 0;
             width: 0;
-            height: 2px;
-            background: #000;
-            transition: width 0.3s ease;
+            height: 1px;
+            background: var(--accent);
+            transition: var(--transition);
         }
 
-        nav a:hover::after {
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
             width: 100%;
         }
 
-        /* Hero 部分 */
+        /* Hero */
         .hero {
-            margin-top: 80px;
-            height: 100vh;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             position: relative;
-            overflow: hidden;
+            padding: 120px 80px;
+            background: var(--bg-primary);
         }
 
         .hero::before {
@@ -110,1232 +126,557 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="1"/></pattern></defs><rect width="1200" height="800" fill="url(%23grid)"/></svg>');
-            opacity: 0.5;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(201, 169, 98, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201, 169, 98, 0.08) 0%, transparent 50%);
         }
 
         .hero-content {
+            max-width: 900px;
+            text-align: center;
             position: relative;
             z-index: 2;
-            max-width: 900px;
-            animation: fadeInUp 1s ease;
         }
 
-        .hero h1 {
-            font-size: 72px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 30px;
+        .hero-subtitle {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 96px);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 32px;
             letter-spacing: -1px;
-            color: #000;
         }
 
-        .hero p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 40px;
+        .hero-title span {
+            display: block;
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 48px;
             font-weight: 300;
-            letter-spacing: 0.5px;
+            line-height: 1.8;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 16px 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 48px;
+            background: var(--accent);
+            color: var(--bg-primary);
             text-decoration: none;
-            display: inline-block;
-            letter-spacing: 0.5px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: var(--transition);
         }
 
-        .btn-primary {
-            background: #000;
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #000;
-            border: 1.5px solid #000;
-        }
-
-        .btn-secondary:hover {
-            background: #000;
-            color: #fff;
+        .hero-cta:hover {
+            background: var(--accent-hover);
             transform: translateY(-2px);
         }
 
-        /* 作品展示网格 */
-        .portfolio {
-            padding: 120px 60px;
-            background: #fff;
+        .hero-cta svg {
+            width: 16px;
+            height: 16px;
+            transition: var(--transition);
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* 摄影图片页 */
+        .gallery-section {
+            padding: 160px 80px;
+            background: var(--bg-secondary);
         }
 
         .section-header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
             margin-bottom: 80px;
         }
 
-        .section-header h2 {
+        .section-title-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
             font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #000;
-            letter-spacing: -0.5px;
+            font-weight: 400;
         }
 
-        .section-header p {
-            font-size: 16px;
-            color: #999;
-            max-width: 500px;
-            margin: 0 auto;
-            font-weight: 300;
+        .section-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 320px;
+            line-height: 1.8;
         }
 
-        .gallery {
+        /* 瀑布流画廊 */
+        .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .gallery-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .gallery-item {
             position: relative;
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
-            border-radius: 12px;
             overflow: hidden;
+            border-radius: 4px;
             cursor: pointer;
-            group: 'gallery';
+            background: var(--bg-tertiary);
         }
 
         .gallery-item::before {
             content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-            z-index: 1;
+            display: block;
+            padding-top: 120%;
         }
 
-        .gallery-item:nth-child(1)::before { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .gallery-item:nth-child(2)::before { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .gallery-item:nth-child(3)::before { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
-        .gallery-item:nth-child(4)::before { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
-        .gallery-item:nth-child(5)::before { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
-        .gallery-item:nth-child(6)::before { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .gallery-item:nth-child(3n+1)::before { padding-top: 140%; }
+        .gallery-item:nth-child(3n+2)::before { padding-top: 100%; }
+        .gallery-item:nth-child(3n)::before { padding-top: 120%; }
+
+        .gallery-item img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
 
         .gallery-item-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
             opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 2;
+            transition: var(--transition);
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
         }
 
         .gallery-item:hover .gallery-item-overlay {
             opacity: 1;
         }
 
-        .gallery-item-text {
-            color: #fff;
-            text-align: center;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-item-text {
-            transform: translateY(0);
-        }
-
-        .gallery-item-text h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .gallery-item-text p {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        /* 数据统计 */
-        .stats {
-            padding: 80px 60px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 60px;
-            text-align: center;
-        }
-
-        .stat-item h3 {
-            font-size: 48px;
-            font-weight: 700;
-            color: #000;
-            margin-bottom: 10px;
-        }
-
-        .stat-item p {
-            font-size: 14px;
-            color: #888;
+        .gallery-item-category {
+            font-size: 10px;
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
         }
 
-        /* 特色部分 */
-        .featured {
-            padding: 120px 60px;
-            background: #fff;
+        .gallery-item-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 4px;
         }
 
-        .featured-grid {
+        .gallery-item-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* 接待页 */
+        .reception-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin-bottom: 80px;
+            min-height: 100vh;
         }
 
-        .featured-image {
-            aspect-ratio: 4/5;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
+        .reception-image {
+            position: relative;
+            background: var(--bg-tertiary);
             overflow: hidden;
         }
 
-        .featured-content h3 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: #000;
-            letter-spacing: -0.5px;
-        }
-
-        .featured-content p {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-bottom: 40px;
-        }
-
-        .feature-list li {
-            padding: 12px 0;
-            font-size: 14px;
-            color: #666;
-            display: flex;
-            align-items: center;
-            font-weight: 300;
-        }
-
-        .feature-list li::before {
-            content: '✓';
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            background: #000;
-            color: #fff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 24px;
-            margin-right: 12px;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        /* 服务部分 */
-        .services {
-            padding: 120px 60px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
-        }
-
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .service-card {
-            background: #fff;
-            padding: 50px 30px;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #000;
-        }
-
-        .service-card p {
-            font-size: 14px;
-            color: #888;
-            font-weight: 300;
-            line-height: 1.8;
-        }
-
-        /* 价格方案 */
-        .pricing {
-            padding: 120px 60px;
-            background: #fff;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .pricing-card {
-            background: #f9f9f9;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .pricing-card.featured {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            border-color: transparent;
-            transform: scale(1.05);
-            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-        }
-
-        .pricing-card:hover {
-            border-color: #666;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-5px);
-        }
-
-        .pricing-badge {
+        .reception-image::before {
+            content: '';
             position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #f5576c;
-            color: #fff;
-            padding: 6px 20px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            inset: 0;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
         }
 
-        .pricing-card h3 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
+        .reception-image-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(90deg, rgba(201,169,98,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(201,169,98,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        .pricing-card.featured h3 {
-            color: #fff;
-        }
-
-        .pricing-price {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #000;
-        }
-
-        .pricing-card.featured .pricing-price {
-            color: #fff;
-        }
-
-        .pricing-period {
-            font-size: 14px;
-            color: #999;
-            margin-bottom: 30px;
-        }
-
-        .pricing-card.featured .pricing-period {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .pricing-features {
-            list-style: none;
-            text-align: left;
-            margin-bottom: 40px;
-            border-top: 1px solid #e0e0e0;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 30px 0;
-        }
-
-        .pricing-card.featured .pricing-features {
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .pricing-features li {
-            padding: 12px 0;
-            font-size: 14px;
-            color: #666;
-            display: flex;
-            align-items: center;
-        }
-
-        .pricing-card.featured .pricing-features li {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .pricing-features li::before {
-            content: '✓';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            background: #000;
-            color: #fff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 20px;
-            margin-right: 12px;
-            font-weight: 700;
-            font-size: 11px;
-            flex-shrink: 0;
-        }
-
-        .pricing-card.featured .pricing-features li::before {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .pricing-card .btn {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        /* 接单区域 */
-        .order {
-            padding: 120px 60px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
-        }
-
-        .order-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .order-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-            margin-bottom: 80px;
-        }
-
-        .order-method {
-            background: #fff;
-            padding: 40px 30px;
-            border-radius: 12px;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .order-method:hover {
-            border-color: #000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transform: translateY(-5px);
-        }
-
-        .order-method-icon {
-            font-size: 56px;
-            margin-bottom: 20px;
-        }
-
-        .order-method h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: #000;
-        }
-
-        .order-method p {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .order-method .btn {
-            width: 100%;
-        }
-
-        .order-form-section {
-            background: #fff;
-            padding: 60px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .order-form-section h3 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 40px;
-            text-align: center;
-            color: #000;
-        }
-
-        .order-form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .order-form-grid .form-group:nth-child(3),
-        .order-form-grid .form-group:nth-child(4),
-        .order-form-grid .form-group:nth-child(5) {
-            grid-column: 1 / -1;
-        }
-
-        .form-group {
+        .reception-content {
+            padding: 120px 80px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            background: var(--bg-secondary);
         }
 
-        .form-label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
+        .reception-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 14px 16px;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: all 0.3s ease;
+        .reception-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 32px;
+            line-height: 1.2;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #000;
-            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        .reception-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 48px;
+            font-weight: 300;
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
+        .reception-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 48px;
         }
 
-        .service-types {
+        .info-item {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 10px;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .service-checkbox {
+        .info-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: var(--text-primary);
+        }
+
+        .reception-cta {
             display: inline-flex;
             align-items: center;
-            padding: 10px 15px;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #fff;
-        }
-
-        .service-checkbox input[type="checkbox"] {
-            width: auto;
-            margin-right: 8px;
-            cursor: pointer;
-        }
-
-        .service-checkbox:hover {
-            border-color: #000;
-        }
-
-        .service-checkbox input[type="checkbox"]:checked + label {
-            font-weight: 600;
-        }
-
-        .order-submit {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-        }
-
-        .order-submit .btn {
-            padding: 18px 60px;
-            font-size: 16px;
-        }
-
-        /* 联系区域 */
-        .contact {
-            padding: 100px 60px;
-            background: #000;
-            color: #fff;
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            letter-spacing: -0.5px;
-        }
-
-        .contact p {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            padding: 16px 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        /* 页脚 */
-        footer {
-            background: #0a0a0a;
-            padding: 60px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        footer a {
-            color: rgba(255, 255, 255, 0.8);
+            gap: 12px;
+            padding: 16px 36px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
             text-decoration: none;
-            transition: color 0.3s ease;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            width: fit-content;
         }
 
-        footer a:hover {
-            color: #fff;
+        .reception-cta:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
         }
 
-        /* 社交媒体链接 */
-        .social-links {
+        /* 底部 */
+        .footer {
+            padding: 80px;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
             display: flex;
-            gap: 30px;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
         }
 
-        .social-links a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 6px;
         }
 
-        /* 动画 */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition);
         }
 
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        .animate-on-scroll {
-            opacity: 0;
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            nav {
-                padding: 0 30px;
-                height: 70px;
+        @media (max-width: 1024px) {
+            .nav {
+                padding: 20px 40px;
             }
-
-            nav ul {
-                gap: 30px;
+            
+            .nav.scrolled {
+                padding: 14px 40px;
             }
 
             .hero {
-                margin-top: 70px;
+                padding: 100px 40px;
             }
 
-            .hero h1 {
-                font-size: 42px;
+            .gallery-section {
+                padding: 100px 40px;
             }
 
-            .hero p {
-                font-size: 16px;
-            }
-
-            .hero-buttons {
+            .section-header {
                 flex-direction: column;
-                align-items: center;
+                gap: 24px;
+                align-items: flex-start;
             }
 
-            .portfolio,
-            .featured,
-            .services,
-            .pricing,
-            .order,
-            .contact {
-                padding: 60px 30px;
-            }
-
-            .section-header h2 {
-                font-size: 32px;
-            }
-
-            .featured-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .gallery {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-
-            .stats {
-                padding: 60px 30px;
-                gap: 40px;
-            }
-
-            .service-grid {
+            .reception-section {
                 grid-template-columns: 1fr;
             }
 
-            .pricing-grid {
+            .reception-image {
+                min-height: 50vh;
+            }
+
+            .reception-content {
+                padding: 80px 40px;
+            }
+
+            .footer {
+                padding: 60px 40px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .gallery-col {
+                gap: 12px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .reception-title {
+                font-size: 36px;
+            }
+
+            .reception-info {
                 grid-template-columns: 1fr;
-            }
-
-            .pricing-card.featured {
-                transform: scale(1);
-            }
-
-            .pricing-card.featured:hover {
-                transform: scale(1) translateY(-5px);
-            }
-
-            .order-methods {
-                grid-template-columns: 1fr;
-            }
-
-            .order-form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .order-form-grid .form-group:nth-child(3),
-            .order-form-grid .form-group:nth-child(4),
-            .order-form-grid .form-group:nth-child(5) {
-                grid-column: 1;
-            }
-
-            .order-form-section {
-                padding: 30px;
+                gap: 24px;
             }
         }
 
         @media (max-width: 480px) {
-            nav ul {
-                gap: 15px;
+            .hero {
+                padding: 80px 24px;
             }
 
-            nav a {
-                font-size: 12px;
+            .gallery-section {
+                padding: 80px 24px;
             }
 
-            nav a.order-link {
-                padding: 8px 15px;
-                font-size: 12px;
+            .reception-content {
+                padding: 60px 24px;
             }
 
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero p {
-                font-size: 14px;
-            }
-
-            .btn {
-                padding: 12px 30px;
-                font-size: 12px;
-            }
-
-            .portfolio,
-            .featured,
-            .services,
-            .pricing,
-            .order,
-            .contact {
-                padding: 40px 20px;
-            }
-
-            .section-header h2 {
-                font-size: 24px;
-            }
-
-            .featured-content h3 {
-                font-size: 24px;
-            }
-
-            .pricing-price {
-                font-size: 36px;
-            }
-
-            .order-form-section {
-                padding: 20px;
-            }
-
-            footer {
-                padding: 40px 20px;
+            .footer {
+                padding: 40px 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <nav>
-        <div class="logo">VISION</div>
-        <ul>
-            <li><a href="#portfolio">作品</a></li>
-            <li><a href="#featured">特色</a></li>
-            <li><a href="#services">服务</a></li>
-            <li><a href="#pricing">价格</a></li>
-            <li><a href="#order" class="order-link">接单</a></li>
+    <!-- 导航 -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">LENS</a>
+        <ul class="nav-links">
+            <li><a href="#gallery">作品</a></li>
+            <li><a href="#about">关于</a></li>
             <li><a href="#contact">联系</a></li>
         </ul>
     </nav>
 
-    <!-- Hero 部分 -->
+    <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
-            <h1>捕捉每一个精彩瞬间</h1>
-            <p>专业级摄影服务，为您记录最珍贵的时刻</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">立即预约</a>
-                <a href="#portfolio" class="btn btn-secondary">查看作品</a>
-            </div>
+            <p class="hero-subtitle">Professional Photography Studio</p>
+            <h1 class="hero-title">光影之间<span>记录永恒</span></h1>
+            <p class="hero-desc">我们相信每张照片都有自己的故事。用专业的技术捕捉瞬间，用独特的视角诠释情感，让每一刻都成为永恒的记忆。</p>
+            <a href="#gallery" class="hero-cta">
+                探索作品
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
         </div>
     </section>
 
-    <!-- 作品展示 -->
-    <section class="portfolio" id="portfolio">
+    <!-- 摄影图片页 -->
+    <section class="gallery-section" id="gallery">
         <div class="section-header">
-            <h2>精选作品</h2>
-            <p>每一个镜头都讲述着一个独特的故事，这是我们的热情与专业的完美结合</p>
-        </div>
-        <div class="gallery">
-            <div class="gallery-item">
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-text">
-                        <h3>婚礼摄影</h3>
-                        <p>记录爱情的每一刻</p>
-                    </div>
-                </div>
+            <div class="section-title-group">
+                <span class="section-label">Portfolio</span>
+                <h2 class="section-title">精选作品</h2>
             </div>
-            <div class="gallery-item">
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-text">
-                        <h3>人像摄影</h3>
-                        <p>捕捉独特气质</p>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-text">
-                        <h3>风景摄影</h3>
-                        <p>大自然的诗篇</p>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-text">
-                        <h3>产品摄影</h3>
-                        <p>展现商品魅力</p>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-text">
-                        <h3>活动摄影</h3>
-                        <p>记录精彩时刻</p>
-                    </div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-item-overlay">
-                    <div class="gallery-item-text">
-                        <h3>航拍摄影</h3>
-                        <p>俯瞰世界之美</p>
-                    </div>
-                </div>
-            </div>
+            <p class="section-desc">涵盖人像、婚礼、商业等多个领域，每一张照片都是精心打磨的艺术品。</p>
         </div>
 
-        <!-- 数据统计 -->
-        <div class="stats">
-            <div class="stat-item">
-                <h3>2500+</h3>
-                <p>完成项目</p>
-            </div>
-            <div class="stat-item">
-                <h3>98%</h3>
-                <p>客户满意度</p>
-            </div>
-            <div class="stat-item">
-                <h3>12+</h3>
-                <p>行业奖项</p>
-            </div>
-            <div class="stat-item">
-                <h3>15年</h3>
-                <p>专业经验</p>
-            </div>
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- 图片将通过 JavaScript 动态加载 -->
         </div>
     </section>
 
-    <!-- 特色服务 -->
-    <section class="featured" id="featured">
-        <div class="featured-grid">
-            <div class="featured-image"></div>
-            <div class="featured-content">
-                <h3>为什么选择我们</h3>
-                <p>我们不仅仅是摄影师，更是故事讲述者。每一个项目都经过精心策划和执行，力求为您呈现最完美的结果。</p>
-                <ul class="feature-list">
-                    <li>经验丰富的专业团队</li>
-                    <li>最先进的摄影设备</li>
-                    <li>创意十足的拍摄方案</li>
-                    <li>快速高效的后期处理</li>
-                    <li>24小时贴心客服支持</li>
-                    <li>满意度保证退款政策</li>
-                </ul>
-                <a href="#contact" class="btn btn-primary">了解更多</a>
-            </div>
+    <!-- 接待页 -->
+    <section class="reception-section" id="about">
+        <div class="reception-image">
+            <div class="reception-image-pattern"></div>
         </div>
-    </section>
-
-    <!-- 服务项目 -->
-    <section class="services" id="services">
-        <div class="section-header">
-            <h2>服务项目</h2>
-            <p>多种摄影服务组合，满足您的所有需求</p>
-        </div>
-        <div class="service-grid">
-            <div class="service-card">
-                <div class="service-icon">💒</div>
-                <h3>婚礼摄影</h3>
-                <p>全天记录，多机位拍摄，精心设计婚礼摄影方案，为您留下永恒的回忆</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">👤</div>
-                <h3>人像拍摄</h3>
-                <p>写真、证件照、形象照，专业化妆造型，专属定制拍摄方案</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏢</div>
-                <h3>商业摄影</h3>
-                <p>企业宣传、产品展示、品牌形象，满足各类商业需求</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🎂</div>
-                <h3>活动摄影</h3>
-                <p>生日派对、公司活动、发布会，全程跟踪记录精彩时刻</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🌍</div>
-                <h3>旅拍摄影</h3>
-                <p>风景地带、城市探索、旅游记录，专业的后期处理和输出</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">✂️</div>
-                <h3>后期修图</h3>
-                <p>精细调色、人像修饰、创意设计，打造完美的最终作品</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 价格方案 -->
-    <section class="pricing" id="pricing">
-        <div class="section-header">
-            <h2>价格方案</h2>
-            <p>灵活的定价方案，满足不同规模的项目需求</p>
-        </div>
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <h3>基础套餐</h3>
-                <div class="pricing-price">¥1,999</div>
-                <div class="pricing-period">4小时拍摄</div>
-                <ul class="pricing-features">
-                    <li>4小时专业摄影</li>
-                    <li>电子版 (100张精选)</li>
-                    <li>基础修图处理</li>
-                    <li>线上交付</li>
-                    <li>7天后期支持</li>
-                </ul>
-                <a href="#order" class="btn btn-primary">立即预约</a>
-            </div>
-
-            <div class="pricing-card featured">
-                <div class="pricing-badge">最受欢迎</div>
-                <h3>标准套餐</h3>
-                <div class="pricing-price">¥3,999</div>
-                <div class="pricing-period">8小时拍摄</div>
-                <ul class="pricing-features">
-                    <li>8小时专业摄影</li>
-                    <li>电子版 (200张精选)</li>
-                    <li>精细修图处理</li>
-                    <li>精装相册 (20页)</li>
-                    <li>免费调整修改</li>
-                    <li>30天后期支持</li>
-                </ul>
-                <a href="#order" class="btn btn-primary">立即预约</a>
-            </div>
-
-            <div class="pricing-card">
-                <h3>高级套餐</h3>
-                <div class="pricing-price">¥7,999</div>
-                <div class="pricing-period">全天拍摄</div>
-                <ul class="pricing-features">
-                    <li>全天专业摄影</li>
-                    <li>电子版 (500张精选)</li>
-                    <li>高端精修处理</li>
-                    <li>精装相册 (40页)</li>
-                    <li>视频制作 (3-5分钟)</li>
-                    <li>终身后期支持</li>
-                </ul>
-                <a href="#order" class="btn btn-primary">立即预约</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 接单服务 -->
-    <section class="order" id="order">
-        <div class="order-content">
-            <div class="section-header">
-                <h2>快速接单</h2>
-                <p>选择您需要的方式，让我们为您服务</p>
-            </div>
-
-            <!-- 快速接单方式 -->
-            <div class="order-methods">
-                <div class="order-method">
-                    <div class="order-method-icon">📱</div>
-                    <h3>微信咨询</h3>
-                    <p>添加我们的微信客服，获取详细的项目咨询和报价</p>
-                    <a href="javascript:void(0)" onclick="copyWechat()" class="btn btn-primary">复制微信</a>
-                    <small id="wechat-text" style="color: #999; margin-top: 10px; font-size: 12px;">点击复制: vision_photo2024</small>
+        <div class="reception-content">
+            <span class="reception-label">About Us</span>
+            <h2 class="reception-title">关于工作室</h2>
+            <p class="reception-text">
+                LENS 影像工作室成立于2015年，专注于高端摄影服务。我们拥有一支经验丰富的专业团队，包括资深摄影师、后期修图师和形象顾问。多年来，我们为众多知名品牌和新人提供了优质的摄影服务，赢得了业界的广泛认可和客户的高度评价。
+            </p>
+            <div class="reception-info">
+                <div class="info-item">
+                    <span class="info-label">地址</span>
+                    <span class="info-value">北京市朝阳区建国路88号</span>
                 </div>
-                <div class="order-method">
-                    <div class="order-method-icon">📞</div>
-                    <h3>电话预约</h3>
-                    <p>直接拨打我们的服务热线，专业团队为您解答</p>
-                    <a href="tel:+86-10-8888-8888" class="btn btn-primary">拨打电话</a>
-                    <small style="color: #999; margin-top: 10px; font-size: 12px;">010-8888-8888</small>
+                <div class="info-item">
+                    <span class="info-label">营业时间</span>
+                    <span class="info-value">周一至周日 9:00-20:00</span>
                 </div>
-                <div class="order-method">
-                    <div class="order-method-icon">✉️</div>
-                    <h3>在线表单</h3>
-                    <p>填写详细信息，我们将在24小时内与您联系</p>
-                    <a href="#order-form" class="btn btn-primary">填写表单</a>
-                    <small style="color: #999; margin-top: 10px; font-size: 12px;">快速响应</small>
+                <div class="info-item">
+                    <span class="info-label">电话</span>
+                    <span class="info-value">+86 10 8888 8888</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">邮箱</span>
+                    <span class="info-value">hello@lensstudio.com</span>
                 </div>
             </div>
-
-            <!-- 在线接单表单 -->
-            <div class="order-form-section" id="order-form">
-                <h3>📋 快速项目信息采集</h3>
-                <form class="order-form-grid" id="orderForm">
-                    <div class="form-group">
-                        <label class="form-label">您的名字 *</label>
-                        <input type="text" placeholder="请输入您的名字" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">联系电话 *</label>
-                        <input type="tel" placeholder="请输入您的联系电话" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">项目类型 *</label>
-                        <select required>
-                            <option value="">-- 请选择项目类型 --</option>
-                            <option value="wedding">婚礼摄影</option>
-                            <option value="portrait">人像摄影</option>
-                            <option value="commercial">商业摄影</option>
-                            <option value="event">活动摄影</option>
-                            <option value="travel">旅拍摄影</option>
-                            <option value="product">产品摄影</option>
-                            <option value="other">其他项目</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">项目细节 *</label>
-                        <textarea placeholder="请详细描述您的项目需求，包括时间、地点、预算等信息" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">期望拍摄日期 *</label>
-                        <input type="date" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">您的邮箱</label>
-                        <input type="email" placeholder="请输入您的邮箱，方便我们发送详细信息">
-                    </div>
-
-                    <div class="order-submit">
-                        <button type="submit" class="btn btn-primary">提交项目需求</button>
-                    </div>
-                </form>
-            </div>
+            <a href="#contact" class="reception-cta">预约咨询</a>
         </div>
     </section>
 
-    <!-- 联系方式 -->
-    <section class="contact" id="contact">
-        <h2>开始您的摄影之旅</h2>
-        <p>如果您有任何项目或疑问，欢迎与我们联系。我们的团队随时准备为您服务</p>
-        <form class="contact-form" id="contactForm">
-            <input type="text" placeholder="您的名字" required>
-            <input type="email" placeholder="您的邮箱" required>
-            <input type="tel" placeholder="联系电话" required>
-            <textarea placeholder="项目描述或其他要求"></textarea>
-            <button type="submit" class="btn btn-primary">立即咨询</button>
-        </form>
-    </section>
-
-    <!-- 页脚 -->
-    <footer>
-        <div class="social-links">
-            <a href="#" title="微博">微</a>
-            <a href="#" title="微信">信</a>
-            <a href="#" title="小红书">小</a>
-            <a href="#" title="抖音">抖</a>
-            <a href="#" title="Instagram">I</a>
+    <!-- 底部 -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">LENS</div>
+            <ul class="footer-links">
+                <li><a href="#gallery">作品</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+            <p class="footer-copy">© 2024 LENS Studio. All rights reserved.</p>
         </div>
-        <p>&copy; 2024 VISION 摄影工作室. 版权所有 | <a href="#">隐私政策</a> | <a href="#">服务条款</a></p>
     </footer>
 
     <script>
+        // 导航滚动效果
+        const nav = document.getElementById('nav');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
         // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -1347,83 +688,62 @@
             });
         });
 
-        // 滚动动画
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+        // 图片数据 - 只需把照片放入 images 文件夹，然后在这里添加路径
+        // 支持 jpg, jpeg, png, webp, gif 格式
+        const imageData = [
+            { src: 'images/photo1.jpg', category: 'Portrait', title: '情绪人像', desc: '捕捉内心深处的情感' },
+            { src: 'images/photo2.jpg', category: 'Wedding', title: '婚礼纪实', desc: '记录幸福的每一个瞬间' },
+            { src: 'images/photo3.jpg', category: 'Commercial', title: '商业广告', desc: '为品牌创造视觉价值' },
+            { src: 'images/photo4.jpg', category: 'Landscape', title: '风景大片', desc: '探索自然的壮美' },
+            { src: 'images/photo5.jpg', category: 'Fashion', title: '时尚街拍', desc: '定义潮流美学' },
+            { src: 'images/photo6.jpg', category: 'Product', title: '产品摄影', desc: '展现商品的独特魅力' },
+            { src: 'images/photo7.jpg', category: 'Event', title: '活动记录', desc: '定格每个精彩时刻' },
+            { src: 'images/photo8.jpg', category: 'Editorial', title: '杂志大片', desc: '打造视觉叙事' }
+        ];
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-on-scroll');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.gallery-item, .service-card').forEach(el => {
-            observer.observe(el);
-        });
-
-        // 表单提交
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('感谢您的咨询！我们会尽快与您联系。');
-            this.reset();
-        });
-
-        // 接单表单提交
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const inputs = this.querySelectorAll('input, textarea, select');
-            let isValid = true;
+        function loadGallery() {
+            const grid = document.getElementById('galleryGrid');
+            const cols = 4;
             
-            inputs.forEach(input => {
-                if (input.hasAttribute('required') && !input.value.trim()) {
-                    isValid = false;
-                    input.style.borderColor = '#f5576c';
+            for (let i = 0; i < cols; i++) {
+                const col = document.createElement('div');
+                col.className = 'gallery-col';
+                
+                for (let j = i; j < imageData.length; j += cols) {
+                    const item = imageData[j];
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = item.src;
+                    img.alt = item.title;
+                    img.loading = 'lazy';
+                    
+                    // 图片加载失败时显示占位背景
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        galleryItem.style.background = 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)';
+                    };
+                    
+                    const overlay = document.createElement('div');
+                    overlay.className = 'gallery-item-overlay';
+                    overlay.innerHTML = `
+                        <span class="gallery-item-category">${item.category}</span>
+                        <h3 class="gallery-item-title">${item.title}</h3>
+                        <p class="gallery-item-desc">${item.desc}</p>
+                    `;
+                    
+                    galleryItem.appendChild(img);
+                    galleryItem.appendChild(overlay);
+                    col.appendChild(galleryItem);
                 }
-            });
-
-            if (isValid) {
-                alert('✅ 项目需求已提交！\n\n我们的团队会在24小时内与您联系。\n感谢您选择VISION摄影工作室！');
-                this.reset();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                grid.appendChild(col);
             }
-        });
-
-        // 复制微信号
-        function copyWechat() {
-            const wechatId = 'vision_photo2024';
-            navigator.clipboard.writeText(wechatId).then(() => {
-                const textEl = document.getElementById('wechat-text');
-                const originalText = textEl.textContent;
-                textEl.textContent = '✓ 已复制到剪贴板！';
-                setTimeout(() => {
-                    textEl.textContent = originalText;
-                }, 2000);
-            }).catch(() => {
-                alert('微信ID: vision_photo2024\n请手动复制');
-            });
         }
 
-        // 导航栏跟随滚动效果
-        let lastScrollTop = 0;
-        const nav = document.querySelector('nav');
-
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > 100) {
-                nav.style.background = 'rgba(255, 255, 255, 0.98)';
-                nav.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.05)';
-            } else {
-                nav.style.background = 'rgba(255, 255, 255, 0.95)';
-                nav.style.boxShadow = 'none';
-            }
-            lastScrollTop = scrollTop;
-        });
+        // 页面加载后执行
+        document.addEventListener('DOMContentLoaded', loadGallery);
     </script>
 </body>
 </html>
